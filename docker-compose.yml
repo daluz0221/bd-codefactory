@@ -1,0 +1,35 @@
+version: "3.9"
+
+
+services:
+  db:
+    build: .
+    container_name: codefactory-db
+    ports:
+      - "5492:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: codefactory
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    depends_on:
+      - db
+    ports:
+      - "9095:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    restart: always
+
+    
+volumes:
+  db_data:
+  pgadmin_data:

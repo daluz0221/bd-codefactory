@@ -1,0 +1,8 @@
+FROM postgres:15
+
+ENV POSTGRES_USER=admin
+ENV POSTGRES_PASSWORD=admin123
+ENV POSTGRES_DB=codefactory
+
+
+COPY init.sql /docker-entrypoint-initdb.d/
